@@ -12,7 +12,6 @@ const AudioInConfig = embeddedAssistant.lookupType('google.assistant.embedded.v1
 const AudioOutConfig = embeddedAssistant.lookupType('google.assistant.embedded.v1alpha2.AudioOutConfig');
 const DeviceConfig = embeddedAssistant.lookupType('google.assistant.embedded.v1alpha2.DeviceConfig');
 const DeviceLocation = embeddedAssistant.lookupType('google.assistant.embedded.v1alpha2.DeviceLocation');
-const DialogStateIn = embeddedAssistant.lookupType('google.assistant.embedded.v1alpha2.DialogStateIn');
 const DialogStateOut = embeddedAssistant.lookupType('google.assistant.embedded.v1alpha2.DialogStateOut');
 const LatLng = embeddedAssistant.lookupType('google.type.LatLng');
 const ScreenOut = embeddedAssistant.lookupType('google.assistant.embedded.v1alpha2.ScreenOut');
@@ -20,7 +19,6 @@ const ScreenOutConfig = embeddedAssistant.lookupType('google.assistant.embedded.
 
 const END_OF_UTTERANCE = AssistResponse.EventType.END_OF_UTTERANCE;
 const DIALOG_FOLLOW_ON = DialogStateOut.MicrophoneMode.DIALOG_FOLLOW_ON;
-const CLOSE_MICROPHONE = DialogStateOut.MicrophoneMode.CLOSE_MICROPHONE;
 const SCREEN_PLAYING = ScreenOutConfig.ScreenMode.PLAYING;
 const SCREEN_OFF = ScreenOutConfig.ScreenMode.OFF;
 const DEFAULT_SAMPLE_RATE_IN = 16000;
@@ -145,7 +143,7 @@ function Conversation(assistant, config) {
         if (result.stability === 1) done = true;
       });
 
-      this.emit('transcription', { transcription, done });
+      this.emit('transcription', {transcription, done});
     }
 
     // send along the audio buffer
@@ -168,7 +166,7 @@ function Conversation(assistant, config) {
 
       this.emit('response', dialogStateOut.supplementalDisplayText);
       setConversationState(dialogStateOut.conversationState);
-      
+
       const volumePercent = dialogStateOut.volumePercentage;
       if (volumePercent !== 0) {
         // set our local version so our assistant speaks this loud
@@ -197,13 +195,13 @@ function Conversation(assistant, config) {
 
   // we write the request before any data comes in
   conversation.write(createRequest(config));
-  
+
   // write audio data to the conversation
   this.write = (data) => {
     // if audio tries to come in when we are sending text, bail out
     if (sendingText) return;
 
-    const request = AssistRequest.create({ audioIn: data });
+    const request = AssistRequest.create({audioIn: data});
     conversation.write(request);
   };
 
@@ -213,7 +211,7 @@ function Conversation(assistant, config) {
   };
 
   return this;
-};
+}
 
 util.inherits(Conversation, EventEmitter);
 module.exports = Conversation;

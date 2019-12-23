@@ -2,7 +2,6 @@
 
 const EventEmitter = require('events');
 const util = require('util');
-const grpc = require('grpc');
 const open = require('open');
 const readline = require('readline');
 const fs = require('fs');
@@ -20,7 +19,6 @@ function Auth(config) {
 
   if (config.savedTokensPath === undefined) {
     throw new Error('Missing "savedTokensPath" from config (this is where your OAuth2 access tokens will be saved)');
-    return;
   }
 
   const keyData = require(config.keyFilePath);
@@ -34,7 +32,8 @@ function Auth(config) {
 
     // save them for later
     mkdirp(path.dirname(config.savedTokensPath), () => {
-      fs.writeFile(config.savedTokensPath, JSON.stringify(tokens), () => {});
+      fs.writeFile(config.savedTokensPath, JSON.stringify(tokens), () => {
+      });
     });
   };
 
@@ -86,7 +85,7 @@ function Auth(config) {
       try {
         const tokensFile = fs.readFileSync(config.savedTokensPath);
         tokens = JSON.parse(tokensFile);
-      } catch(error) {
+      } catch (error) {
         // we need to get the tokens
         getTokens();
       } finally {
