@@ -4,11 +4,11 @@ const EventEmitter = require('events');
 const util = require('util');
 const GAGlobals = require('./components/ga-globals');
 
-const Assistant = require('./components/assistant');
-const Auth = require('./components/auth');
-const Conversation = require('./components/conversation');
-
 function GoogleAssistant(authConfig, callback) {
+  const Assistant = require('./components/assistant');
+  const Auth = require('./components/auth');
+  const Conversation = require('./components/conversation');
+
   if (authConfig === undefined) {
     const error = new Error('Missing auth config object!');
     this.emit('error', error);
