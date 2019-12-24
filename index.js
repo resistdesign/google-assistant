@@ -2,6 +2,7 @@
 
 const EventEmitter = require('events');
 const util = require('util');
+const GAGlobals = require('./components/ga-globals');
 
 const Assistant = require('./components/assistant');
 const Auth = require('./components/auth');
@@ -55,4 +56,7 @@ function GoogleAssistant(authConfig, callback) {
 }
 
 util.inherits(GoogleAssistant, EventEmitter);
+
+GoogleAssistant.GLOBALS = GAGlobals;
+
 module.exports = GoogleAssistant;

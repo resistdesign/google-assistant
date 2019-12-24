@@ -6,7 +6,7 @@ const GoogleAssistant = require('../index');
 
 const config = {
   auth: {
-    keyFilePath: path.resolve(__dirname, 'YOUR_KEY_FILE.json'),
+    keyFilePath: path.resolve(__dirname, 'client.json'),
     savedTokensPath: path.resolve(__dirname, 'tokens.json'), // where you want the tokens to be saved
   },
   conversation: {
@@ -56,8 +56,8 @@ const promptForInput = () => {
 };
 
 const assistant = new GoogleAssistant(config.auth);
-  assistant
-    .on('ready', promptForInput)
-    .on('error', (error) => {
-      console.log('Assistant Error:', error);
-    });
+assistant
+  .on('ready', promptForInput)
+  .on('error', (error) => {
+    console.log('Assistant Error:', error);
+  });
