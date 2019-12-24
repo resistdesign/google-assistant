@@ -1,9 +1,10 @@
 'use strict';
 
 const grpc = require('@grpc/grpc-js');
-const protoLoader = require('./proto-loader');
+const protobuf = require('protobufjs');
+const EmbeddedAssistantProtoJSON = require('../lib/google/assistant/embedded/v1alpha2/embedded_assistant');
 
-const embeddedAssistant = protoLoader.loadSync('google/assistant/embedded/v1alpha2/embedded_assistant.proto');
+const embeddedAssistant = protobuf.Root.fromJSON(EmbeddedAssistantProtoJSON);
 const AssistRequest = embeddedAssistant.lookupType('google.assistant.embedded.v1alpha2.AssistRequest');
 const AssistResponse = embeddedAssistant.lookupType('google.assistant.embedded.v1alpha2.AssistResponse');
 
